@@ -47,19 +47,19 @@ export const fileExists = async (filePath) => {
 
 // Writing to our CSV files
 export const writeToCsv = ({ headers, records, filePath }) => {
-  const writer = csvWriter({ headers });
-  writer.pipe(fs.createWriteStream(filePath));
-  records.forEach(r => writer.write(r));
-  writer.end();
+  const csvWriter = csvWriter({ headers });
+  csvWriter.pipe(fs.createWriteStream(filePath));
+  records.forEach(r => csvWriter.write(r));
+  csvWriter.end();
 };
 
 // Retrieving directories
-export const getReportFilesDir = () => {
-  let reportFilesDir;
+export const getFilesDirectory = () => {
+  let filesDirectory;
   try {
-    reportFilesDir = path.join(__dirname, `../${config.get('reportFilesDir')}`);
-    mkdirp.sync(reportFilesDir);
-    return reportFilesDir;
+    filesDirectory = path.join(__dirname, `../${config.get('filesDirectory')}`);
+    mkdirp.sync(filesDirectory);
+    return filesDirectory;
   } catch (err) {
     throw err;
   }
